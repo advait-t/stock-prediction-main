@@ -8,6 +8,7 @@ from dateutil.parser import parse
 import json
 warnings.filterwarnings("ignore")
 from prophet.serialize import model_to_json, model_from_json
+import requests
 
 
 def inferencing(holiday_list_path, training_data_path, error_df_path, model_path):
