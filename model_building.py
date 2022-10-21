@@ -5,7 +5,6 @@ import prophet
 import warnings
 import numpy as np
 import pandas as pd
-import streamlit as st
 from dateutil.parser import parse
 from datetime import datetime, timedelta, date
 from prophet.serialize import model_to_json, model_from_json
