@@ -43,8 +43,8 @@ def inferencing(holiday_list_path, training_data_path, error_df_path, model_path
 
 #! Loading Model
 def load_model(model_path):
-    with open(model_path, 'r') as fin:
-        saved_model = model_from_json(json.load(fin))  # Load model
+#     with open(model_path, 'r') as fin:
+    saved_model = model_from_json(json.load(fin))  # Load model
     return saved_model
 
 #! check for holiday
