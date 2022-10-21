@@ -6,15 +6,31 @@ import numpy as np
 from datetime import datetime, timedelta, date
 import yfinance as yf
 import warnings
+import requests
+
+import urllib3
+
+def get_companies_txt(url):
+    http = urllib3.PoolManager()
+    r = http.request('GET', url)
+    companies = r.data.decode('utf-8').split()
+    # split each word by comma
+    companies = [i.split(',') for i in companies]
+    # flatten the list
+    companies = [item for sublist in companies for item in sublist]
+    
+    return companies
+
 warnings.filterwarnings("ignore")
 
 #! Function to check if there is any new company in the list or an old company has been removed from the list
 def check_for_changes_in_companies(training_data_path, companies_list_path):
     existing_company_list = pd.read_csv(training_data_path)["Company"].unique()
 #     with open(companies_list_path, "r") as f:
-    f = requests.get(companies_list_path)
-    f = f.text
-    new_companies_list=[i for line in f for i in line.split(',')]
+#     f = requests.get(companies_list_path)
+#     f = f.text
+#     new_companies_list=[i for line in f for i in line.split(',')]
+    new_companies_list = get_companies_txt(companies_list_path)
 
     new_company = list(set(new_companies_list) - set(existing_company_list))
     delete_company = list(set(existing_company_list) - set(new_companies_list))
